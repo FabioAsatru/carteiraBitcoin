@@ -143,8 +143,6 @@
           <h4 class="light">Novo Deposito</h4>  
           <div class="row">
 
-           
-
 
 
           <form class="col s12">
@@ -166,9 +164,9 @@
               <div class="input-field col s6">
                 <select>
                   <option value="" disabled selected>Escolha uma opção</option>
-                  <option value="1">Transferência entre contas (mesmo banco) </option>
-                  <option value="2">TED (Apartir de R$50,00)</option>
-                  <option value="3">DOC (até R$499,99)</option>
+                  <option value="1">Banco do Brasil </option>
+                  <option value="2">Santander</option>
+                  <option value="3">Bradesco</option>
                 </select>
                 <label>Banco de Destino</label>
               </div>  
