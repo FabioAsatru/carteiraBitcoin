@@ -137,23 +137,20 @@
     <!-- view deposito -->
     <div id="deposito" class="deposito" hidden>
 
-            <h1>Deposito <i class="fa fa-money" aria-hidden="true"></i></h1>
+            <!--<h1>Deposito <i class="fa fa-money" aria-hidden="true"></i></h1>-->
 
-          
           <h4 class="light">Novo Deposito</h4>  
           <div class="row">
 
-
-
-          <form class="col s12">
+          <form  class="col s12" id="cadastrar-deposito">
             <div class="row">
             
               <div class="input-field col s6">
-                <select>
+                <select id="tipoDeposito" name="tipoDeposito">
                   <option value="" disabled selected>Escolha uma opção</option>
-                  <option value="1">Transferência entre contas (mesmo banco) </option>
-                  <option value="2">TED (Apartir de R$50,00)</option>
-                  <option value="3">DOC (até R$499,99)</option>
+                  <option value="Transferência entre contas (mesmo banco)">Transferência entre contas (mesmo banco) </option>
+                  <option value="TED (Apartir de R$50,00)">TED (Apartir de R$50,00)</option>
+                  <option value="DOC (até R$499,99)">DOC (até R$499,99)</option>
                 </select>
                 <label>Tipo de Depósito</label>
               </div>  
@@ -162,7 +159,7 @@
             
             <div class="row">
               <div class="input-field col s6">
-                <select>
+                <select id="bancoDestino" name="bancoDestino">
                   <option value="" disabled selected>Escolha uma opção</option>
                   <option value="1">Banco do Brasil </option>
                   <option value="2">Santander</option>
@@ -175,7 +172,7 @@
 
             <div class="row">
               <div class="input-field col s4">
-                <input id="valorDeposito" type="text">
+                <input id="valorDeposito" name="valorDeposito" type="text">
                 <label for="valorDeposito">Valor do Depósito R$</label>
               </div>
             </div>
@@ -197,7 +194,7 @@
             
             <div class="row">
               <div class="input-field col s8">
-                <input id="valorCreditado" type="text">
+                <input id="descricao" name="descricao" type="text">
                 <label for="valorCreditado">Descrição</label>
               </div>
             </div>
@@ -205,14 +202,11 @@
             <div class="row">
               
               <div class="col s6 offset-s6">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Enviar<i class="material-icons right">send</i></button>
+                <button class="btn waves-effect waves-light" type="submit" id="btn-cadastrar" name="action">Enviar<i class="material-icons right">send</i></button>
               </div>
             </div>
 
-
             </div>
-
-
 
           </form>
         </div>
@@ -229,33 +223,9 @@
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <!--
-          <h5 class="white-text"></h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-        -->
-
-        </div>
-        <!--
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
+        
         </div>
         
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        -->
       </div>
     </div>
     <div class="footer-copyright">
@@ -317,8 +287,43 @@
 
           $('select').material_select();
   
+  
+  
+        //cadastrar deposito
+        $("#btn-cadastrar").click(function(e){
+          e.preventDefault();
+          console.log($("#cadastrar-deposito").serialize());
+          console.log('passou aqui');
+          $.ajax({
+            url : "http://localhost/carteiraBitcoin/controller/cadastrar-deposito.php",
+            type : "post",
+            data : $("#cadastrar-deposito").serialize(),
+
+            success : function(result){
+              
+            },
+
+            error : function(result){
+              alert("FAIL");
+            }
+          })
+        })
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
     });
   
+
   
   </script>
 
