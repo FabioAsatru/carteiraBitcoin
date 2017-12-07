@@ -146,8 +146,8 @@
             <div class="row">
             
               <div class="input-field col s6">
-                <select id="tipoDeposito" name="tipoDeposito">
-                  <option value="" disabled selected>Escolha uma opção</option>
+                <select id="tipoDeposito" name="tipoDeposito" required>
+                  <option value=""  selected  disable>Escolha uma opção</option>
                   <option value="Transferência entre contas (mesmo banco)">Transferência entre contas (mesmo banco) </option>
                   <option value="TED (Apartir de R$50,00)">TED (Apartir de R$50,00)</option>
                   <option value="DOC (até R$499,99)">DOC (até R$499,99)</option>
@@ -159,24 +159,24 @@
             
             <div class="row">
               <div class="input-field col s6">
-                <select id="bancoDestino" name="bancoDestino">
-                  <option value="" disabled selected>Escolha uma opção</option>
-                  <option value="1">Banco do Brasil </option>
-                  <option value="2">Santander</option>
-                  <option value="3">Bradesco</option>
+                <select id="bancoDestino" name="bancoDestino" required>
+                  <option value=""  selected disable>Escolha uma opção</option>
+                  <option value="Banco do Brasil">Banco do Brasil </option>
+                  <option value="Santander">Santander</option>
+                  <option value="Bradesco">Bradesco</option>
                 </select>
                 <label>Banco de Destino</label>
               </div>  
             </div>
 
-
-            <div class="row">
+            
+           <div class="row">
               <div class="input-field col s4">
-                <input id="valorDeposito" name="valorDeposito" type="text">
-                <label for="valorDeposito">Valor do Depósito R$</label>
+               <h7>Valor do Deposito</h7>
+              <input type="text" id="valorDeposito" name="valorDeposito" data-thousands="." data-decimal="," data-prefix="R$ " />
               </div>
             </div>
-
+   
 
             <div class="row">
               <div class="input-field col s4">
@@ -238,8 +238,10 @@
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery.maskMoney.min.js" type="text/javascript"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
+
   <script>
   
     $(document).ready(function(){
@@ -275,6 +277,9 @@
 
         });
         
+       
+        //$('#valorDeposito').maskMoney();
+
 
         $('#deposito-go').click(function(event){
               console.log('teste');
@@ -284,31 +289,59 @@
 
         });
 
-
+          $("#valorDeposito").maskMoney();
           $('select').material_select();
   
   
   
         //cadastrar deposito
         $("#btn-cadastrar").click(function(e){
+        //$("#cadastrar-deposito").submit(function(e){
           e.preventDefault();
-          console.log($("#cadastrar-deposito").serialize());
-          console.log('passou aqui');
-          $.ajax({
-            url : "http://localhost/carteiraBitcoin/controller/cadastrar-deposito.php",
-            type : "post",
-            data : $("#cadastrar-deposito").serialize(),
 
-            success : function(result){
+
+          var valorDeposito = $('#tipoDeposito').val();
+          var bancoDestino = $('#bancoDestino').val();
+          var valorDeposito = $('#valorDeposito').val();
+          var desc = $('#descricao').val();
+
+          if(valorDeposito == "" || bancoDestino == "" || valorDeposito == "" || desc == ""){
+              Materialize.toast('deposito cadastrado com sucesso.', 5000, 'rounded');
+          }else{
               
-            },
+            $.ajax({
+                url : "http://localhost/carteiraBitcoin/controller/cadastrar-deposito.php",
+                type : "post",
+                data : $("#cadastrar-deposito").serialize(),
 
-            error : function(result){
-              alert("FAIL");
-            }
-          })
-        })
-  
+                success : function(result){
+                  Materialize.toast('deposito cadastrado com sucesso.', 3000, 'rounded');
+                    $("label").each(function(){
+                        $(this).removeClass("active");
+                      });
+                    $(".input-field select").val("default");
+                    //$("input-field select").val("default");
+                    $("#valorDeposito").val("");
+                    $("#descricao").val("");
+                    
+                },
+
+                  error : function(result){
+                    alert("FAIL");
+                  }
+                })
+              })
+
+          }
+
+
+
+          //console.log($("#cadastrar-deposito").serialize());
+          //console.log('passou aqui');
+
+
+
+    
   
   
   
