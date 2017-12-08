@@ -212,7 +212,26 @@
         </div>
               
 
+        <section class="row" id="depositos"></section>  
+
+
+
+
+
+
     </div>
+    <!-- END view deposito -->
+    
+    <!-- view Saque -->
+      
+
+
+    <!-- END view Saque -->
+
+
+
+
+
 
 
 
@@ -246,6 +265,69 @@
   
     $(document).ready(function(){
     
+      //listar depositos
+      function listarDeposito(){
+        $.ajax({
+          url : "http://localhost/carteiraBitcoin/controller/listar-deposito.php",
+          dataType : "json",
+
+          success : function(result){
+            if(result != 0){
+              /*var html = '<br><br><ul class="collection with-header container">';
+              html += '<li class="collection-header"><h4>Cursos</h4></li>';			
+               console.log(result); 
+
+              $.each(result, function(index,curso){
+                html += '<li class="collection-item"><div>'+curso.id_deposito+'<a href="#!" onclick="excluir('+curso.id+')" class="secondary-content"><i class="material-icons">clear</i></a><a href="curso.php?id='+curso.id_curso+'" class="secondary-content"><i class="material-icons">create</i></a></div></li>';
+              })
+              */
+
+              var html = "<table>"
+                html += "<thead> <tr> <th>Tipo do Deposito</th> <th>Valor</th> <th>Status</th>  </tr> </thead>" 
+                html += "<tbody>"
+
+                $.each(result, function(index,deposito){
+                html += '<tr><td>'+deposito.tipo_deposito+'</td><td>'+deposito.valor_deposito+'</td><td>'+deposito.status+'</td> </tr>';
+                })
+
+
+                html += "</tbody>"
+                
+
+                html += "</table>"
+
+
+
+
+              //html+= "</ul>";
+              $("#depositos").html(html);
+
+
+            }
+
+          },
+
+          error : function(){
+            alert("FAIL");
+          }
+        })
+      }
+
+     // listarDeposito();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       $.ajax({
         method: "GET",
@@ -306,7 +388,7 @@
           var desc = $('#descricao').val();
 
           if(valorDeposito == "" || bancoDestino == "" || valorDeposito == "" || desc == ""){
-              Materialize.toast('deposito cadastrado com sucesso.', 5000, 'rounded');
+              Materialize.toast('Por favor completar os campos nulos.', 5000, 'rounded');
           }else{
               
             $.ajax({
@@ -323,36 +405,19 @@
                     //$("input-field select").val("default");
                     $("#valorDeposito").val("");
                     $("#descricao").val("");
-                    
+                    listarDeposito(); 
                 },
 
                   error : function(result){
                     alert("FAIL");
                   }
                 })
-              })
+              
 
           }
 
+          })
 
-
-          //console.log($("#cadastrar-deposito").serialize());
-          //console.log('passou aqui');
-
-
-
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
     });
   
