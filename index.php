@@ -86,7 +86,7 @@
                    I am convenient because I require little markup to use effectively.</p>
                  </div>
                  <div class="card-action">
-                   <button class="btn waves-effect waves-light" type="submit" name="action">Entrar
+                   <button class="btn waves-effect waves-light" type="submit" id="saque-go" name="action">Entrar
                     <i class="material-icons right">send</i>
                    </button>
                  </div>
@@ -124,7 +124,6 @@
              </div>
 
     
-    
     </div>
 
     
@@ -137,6 +136,44 @@
     <!-- view deposito -->
     <div id="deposito" class="deposito" hidden>
 
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+        <!-- modal deposito -->
+
+             <!-- Modal Structure -->
+              <div id="modal1" class="modal">
+                <div class="modal-content">
+                  <h4>Intruções</h4>
+                  
+                   <p>1. Abra o seu internet Banking.</p>
+                    <p>2. Inicie a transferência para a seguinte conta:</p>
+                    <p>Nome do Banco: Bradesco</p>
+                    <p>Agência: 0008</p>
+                    <p>Número da Conta: 914-8</p>
+                    <p>Títular da conta: FoxBit serviços digitais LTDA</p>
+                    <p>CNPJ: 21.246.584/0001-50</p>
+                    <p>3. Tire uma foto ou um print screen do comprovante</p>
+          
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Entedi</a>
+                </div>
+              </div>
+        <!-- modal deposito -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <!--<h1>Deposito <i class="fa fa-money" aria-hidden="true"></i></h1>-->
 
           <h4 class="light">Novo Deposito</h4>  
@@ -148,16 +185,19 @@
               <div class="input-field col s6">
                 <select id="tipoDeposito" name="tipoDeposito" required>
                   <option value=""  selected  disable>Escolha uma opção</option>
-                  <option value="Transferência entre contas (mesmo banco)">Transferência entre contas (mesmo banco) </option>
-                  <option value="TED (Apartir de R$50,00)">TED (Apartir de R$50,00)</option>
-                  <option value="DOC (até R$499,99)">DOC (até R$499,99)</option>
+                  <option value="Caixa Econômica Federal">Caixa Econômica Federal</option>
+                  <option value="Banco do Brasil">Banco do Brasil</option>
+                  <option value="Bradesco">Bradesco</option>
+                  <option value="Outros Bancos">Outros Bancos</option>
+                  <option value="Dinheiro na boca do caixa">Dinheiro na boca do caixa</option>
+                  <option value="Moneygram">Moneygram</option>
                 </select>
                 <label>Tipo de Depósito</label>
               </div>  
 
             </div>
             
-            <div class="row">
+            <div class="row" hidden>
               <div class="input-field col s6">
                 <select id="bancoDestino" name="bancoDestino" required>
                   <option value=""  selected disable>Escolha uma opção</option>
@@ -223,7 +263,74 @@
     <!-- END view deposito -->
     
     <!-- view Saque -->
-      
+    <div id="saque" class="saque" hidden>
+
+            <!--<h1>Deposito <i class="fa fa-money" aria-hidden="true"></i></h1>-->
+
+          <h4 class="light">Novo Saque</h4>  
+          <div class="row">
+
+          <form  class="col s12" id="cadastrar-saque">
+            <div class="row">
+            
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="contaBancaria" name="contaBancaria" type="text">
+                <label for="contaBancaria">Conta Bancaria</label>
+              </div>
+            </div>
+
+            
+           <div class="row">
+              <div class="input-field col s4">
+               <h7>Valor do Saque</h7>
+              <input type="text" id="valorSaque" name="valorSaque" data-thousands="." data-decimal="," data-prefix="R$ " />
+              </div>
+            </div>
+   
+
+            <div class="row">
+              <div class="input-field col s4">
+                <input id="valorComissao" type="text">
+                <label for="valorComissao">Comissão R$ (1,99% + R$ 2,90)</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s4">
+                <input id="valorCreditado" type="text">
+                <label for="valorCreditado">Será Depositado R$</label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="input-field col s8">
+                <input id="descricao" name="descricao" type="text">
+                <label for="valorCreditado">Descrição</label>
+              </div>
+            </div>
+
+            <div class="row">
+              
+              <div class="col s6 offset-s6">
+                <button class="btn waves-effect waves-light" type="submit" id="btn-saque-cadastrar" name="action">Enviar<i class="material-icons right">send</i></button>
+              </div>
+            </div>
+
+            </div>
+
+          </form>
+        </div>
+              
+
+        <section class="row" id="depositos"></section>  
+
+
+
+
+
+
+    </div>
 
 
     <!-- END view Saque -->
@@ -262,7 +369,16 @@
   <script src="js/init.js"></script>
 
   <script>
-  
+
+     $('#modal1').modal();
+          
+
+
+
+
+
+
+
     $(document).ready(function(){
     
       //listar depositos
@@ -363,6 +479,7 @@
         //$('#valorDeposito').maskMoney();
 
 
+        //Visualizar Deposito
         $('#deposito-go').click(function(event){
               console.log('teste');
               event.preventDefault();
@@ -371,10 +488,28 @@
 
         });
 
-          $("#valorDeposito").maskMoney();
-          $('select').material_select();
-  
-  
+        //Visualizar Saque
+        $('#saque-go').click(function(event){
+              console.log('teste');
+              event.preventDefault();
+              $('#main').hide();
+              $('#saque').show();  
+
+        });
+
+      
+
+            //mascara Valor do Saque  
+            $("#valorSaque").maskMoney();
+    
+
+        //mascara Valor do Deposito  
+        $("#valorDeposito").maskMoney();
+        $('select').material_select();
+    
+
+
+
   
         //cadastrar deposito
         $("#btn-cadastrar").click(function(e){
@@ -387,7 +522,7 @@
           var valorDeposito = $('#valorDeposito').val();
           var desc = $('#descricao').val();
 
-          if(valorDeposito == "" || bancoDestino == "" || valorDeposito == "" || desc == ""){
+          if(valorDeposito == "" || valorDeposito == "" || desc == ""){
               Materialize.toast('Por favor completar os campos nulos.', 5000, 'rounded');
           }else{
               
@@ -417,6 +552,62 @@
           }
 
           })
+
+        
+        //cadastrar saque
+        $("#btn-saque-cadastrar").click(function(e){
+        //$("#cadastrar-deposito").submit(function(e){
+          e.preventDefault();
+
+          /*
+          var valorDeposito = $('#tipoDeposito').val();
+          var bancoDestino = $('#bancoDestino').val();
+          var valorDeposito = $('#valorDeposito').val();
+          var desc = $('#descricao').val();
+
+          if(valorDeposito == "" || bancoDestino == "" || valorDeposito == "" || desc == ""){
+              Materialize.toast('Por favor completar os campos nulos.', 5000, 'rounded');
+          }else{
+            */
+            console.log($("#cadastrar-saque").serialize());
+              
+            $.ajax({
+                url : "http://localhost/carteiraBitcoin/controller/cadastrar-saque.php",
+                type : "post",
+                data : $("#cadastrar-saque").serialize(),
+
+                success : function(result){
+                  Materialize.toast('deposito cadastrado com sucesso.', 3000, 'rounded');
+                    $("label").each(function(){
+                        $(this).removeClass("active");
+                      });
+                    $(".input-field select").val("default");
+                    //$("input-field select").val("default");
+                    $("#valorDeposito").val("");
+                    $("#descricao").val("");
+                    listarDeposito(); 
+                },
+
+                  error : function(result){
+                    alert("FAIL");
+                  }
+                })
+              
+
+          //}
+
+          })
+
+
+
+
+
+
+
+
+
+
+
 
   
     });

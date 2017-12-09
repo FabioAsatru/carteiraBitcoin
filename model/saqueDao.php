@@ -13,15 +13,17 @@
 
 		public function cadastrar(Saque $saque){
 			$query = "INSERT INTO 
-                deposito(
+                saque(
                          conta_bancaria
                         ,valor_saque
                         ,descricao
+						,data
                         )
                  VALUES(
                          '{$saque->getContaBancaria()}'
-                        ,'{$deposito->getValorSaque()}'
-                        ,'{$deposito->getDescricao()}'
+                        ,'{$saque->getValorSaque()}'
+                        ,'{$saque->getDescricao()}'
+						,'{$saque->getData()}'
                         
                          );";
 

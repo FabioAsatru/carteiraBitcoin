@@ -1,13 +1,14 @@
 <?php  
 
 	
-	class Deposito{
+	class Saque{
 
         private $id;
 		private $contaBancaria;
 		private $valorSaque;
         private $descricao;
-        
+		private $data;
+		
 
         //id
         public function setId($id){
@@ -30,6 +31,12 @@
         }
         
        
+		//data
+		public function setData($data){
+			$this->data = $data;
+		}
+
+
 
 
 		public function getId(){
@@ -47,7 +54,11 @@
         public function getDescricao(){
 			return $this->descricao;
         }
-        
+		
+		public function getData(){
+			return $this->data;
+		}
+
         
 	}
 
